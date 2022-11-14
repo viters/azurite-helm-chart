@@ -1,0 +1,102 @@
+{{- $fullName := printf "%s" (include "azurite.fullname" . ) -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "azurite.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.statefulset.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $fullName }}
+  volumeClaimTemplates:
+    - metadata:
+        name: storage
+        {{- if .Values.persistentVolume.annotations }}
+        annotations:
+          {{ toYaml .Values.persistentVolume.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        {{- if .Values.persistentVolume.storageClass }}
+        {{- if (eq "-" .Values.persistentVolume.storageClass) }}
+        storageClassName: ""
+        {{- else }}
+        storageClassName: "{{ .Values.persistentVolume.storageClass }}"
+        {{- end }}
+        {{- end }}
+        accessModes:
+          {{ toYaml .Values.persistentVolume.accessModes | nindent 10 }}
+        resources:
+          requests:
+            storage: "{{ .Values.persistentVolume.size }}"
+  template:
+    metadata:
+      {{- with .Values.statefulset.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ $fullName }}
+        {{- include "azurite.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: storage
+          emptyDir: {}
+      securityContext:
+        {{- toYaml .Values.statefulset.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.name }}:{{ .Chart.AppVersion | toString }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - "azurite"
+            - "-l"
+            - "/data"
+            - "--loose"
+            {{- if .Values.config.blobs.enabled }}
+            - "--blobHost"
+            - "0.0.0.0"
+            {{- end }}
+            {{- if .Values.config.queues.enabled }}
+            - "--queueHost"
+            - "0.0.0.0"
+            {{- end }}
+            {{- if .Values.config.tables.enabled }}
+            - "--tableHost"
+            - "0.0.0.0"
+            {{- end }}
+          ports:
+            {{- if .Values.config.blobs.enabled }}
+            - containerPort: 10000
+              name: blobs
+            {{- end }}
+            {{- if .Values.config.queues.enabled }}
+            - containerPort: 10001
+              name: queues
+            {{- end }}
+            {{- if .Values.config.tables.enabled }}
+            - containerPort: 10002
+              name: tables
+            {{- end }}
+          volumeMounts:
+            - name: storage
+              mountPath: /data
+          resources:
+            {{- toYaml .Values.statefulset.resources | nindent 12 }}
+      {{- with .Values.statefulset.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.statefulset.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.statefulset.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

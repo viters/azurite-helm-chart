@@ -1,0 +1,31 @@
+{{- $fullName := printf "%s" (include "azurite.fullname" . ) -}}
+{{- if .Values.config.blobs.initJob.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app: {{ $fullName }}
+    {{- include "azurite.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+    spec:
+      containers:
+        - name: azurite-init-containers
+          image: lukaszczesniak/azure-storage-init-containers
+          env:
+            - name: AZURE_STORAGE_CONNECTION_STRING
+              value: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1'"
+            - name: AZURE_STORAGE_PUBLIC_CONTAINERS
+              value: {{ .Values.config.blobs.initJob.containers.public | default "" }}
+            - name: AZURE_STORAGE_PRIVATE_CONTAINERS
+              value: {{ .Values.config.blobs.initJob.containers.private | default "" }}
+      restartPolicy: OnFailure
+  backoffLimit: 10
+{{- end }}
