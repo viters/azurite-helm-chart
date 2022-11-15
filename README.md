@@ -1,6 +1,6 @@
 # azurite-helm-chart
 
-https://github.com/Azure/Azurite
+[https://github.com/Azure/Azurite](https://github.com/Azure/Azurite)
 
 ## Usage
 
