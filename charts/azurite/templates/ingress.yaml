@@ -17,7 +17,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-    {{- if .Values.config.blobs.enabled and .Values.ingress.host.blobs }}
+    {{- if and (.Values.config.blobs.enabled) (.Values.ingress.host.blobs) }}
     - host: {{ .Values.ingress.host.blobs | quote }}
       http:
         paths:
@@ -29,7 +29,7 @@ spec:
                 port:
                   name: blobs
     {{- end }}
-    {{- if .Values.config.queues.enabled and .Values.ingress.host.queues }}
+    {{- if and (.Values.config.queues.enabled) (.Values.ingress.host.queues) }}
     - host: {{ .Values.ingress.host.queues | quote }}
       http:
         paths:
@@ -41,7 +41,7 @@ spec:
                 port:
                   name: queues
     {{- end }}
-    {{- if .Values.config.tables.enabled and .Values.ingress.host.tables }}
+    {{- if and (.Values.config.tables.enabled) (.Values.ingress.host.tables) }}
     - host: {{ .Values.ingress.host.tables | quote }}
       http:
         paths:

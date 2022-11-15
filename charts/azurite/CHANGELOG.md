@@ -11,6 +11,10 @@ Entries should be ordered as follows:
 
 Entries should include a reference to the pull request that introduced the change.
 
+## 1.3.1
+
+- [BUGFIX] Fix ingress conditions 
+
 ## 1.3.0
 
 - [CHANGE] Change ingress defaults
