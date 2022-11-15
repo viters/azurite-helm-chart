@@ -11,6 +11,11 @@ Entries should be ordered as follows:
 
 Entries should include a reference to the pull request that introduced the change.
 
+## 1.1.0
+
+- [CHANGE] `initJob` for blobs is now disabled by default 
+- [FIX] Fixed ingress paths 
+
 ## 1.0.0
 
 - [FEATURE] Release working chart

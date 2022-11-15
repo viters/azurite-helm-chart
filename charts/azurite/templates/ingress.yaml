@@ -20,21 +20,21 @@ spec:
     - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
-          - path: /blobs
+          - path: /blobs(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   name: blobs
-          - path: /queues
+          - path: /queues(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   name: queues
-          - path: /tables
+          - path: /tables(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:

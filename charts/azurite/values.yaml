@@ -16,7 +16,7 @@ config:
     enabled: true
     ## https://github.com/viters/azure-storage-init-containers
     initJob:
-      enabled: true
+      enabled: false
       containers:
         public: ""
         private: ""
@@ -53,6 +53,7 @@ persistentVolume:
 ingress:
   enabled: false
   labels: {}
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   host: ""
   className: "public"
