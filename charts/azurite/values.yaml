@@ -55,7 +55,7 @@ ingress:
   labels: {}
   annotations: {}
   host:
-    blobs: ""
-    queues: ""
-    tables: ""
+    blobs: null
+    queues: null
+    tables: null
   className: "public"
