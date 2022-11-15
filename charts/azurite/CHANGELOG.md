@@ -11,6 +11,11 @@ Entries should be ordered as follows:
 
 Entries should include a reference to the pull request that introduced the change.
 
+## 1.2.0
+
+- [CHANGE] Use `--disableProductStyleUrl` in StatefulSet
+- [CHANGE] Rework ingress routing 
+
 ## 1.1.0
 
 - [CHANGE] `initJob` for blobs is now disabled by default 

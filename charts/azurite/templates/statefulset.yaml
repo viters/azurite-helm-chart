@@ -57,6 +57,7 @@ spec:
             - "azurite"
             - "-l"
             - "/data"
+            - "--disableProductStyleUrl"
             - "--loose"
             {{- if .Values.config.blobs.enabled }}
             - "--blobHost"

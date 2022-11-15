@@ -17,28 +17,40 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: {{ .Values.ingress.host | quote }}
+    {{- if .Values.config.blobs.enabled }}
+    - host: {{ .Values.ingress.host.blobs | quote }}
       http:
         paths:
-          - path: /blobs(/|$)(.*)
+          - path: /
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   name: blobs
-          - path: /queues(/|$)(.*)
+    {{- end }}
+    {{- if .Values.config.queues.enabled }}
+    - host: {{ .Values.ingress.host.queues | quote }}
+      http:
+        paths:
+          - path: /
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   name: queues
-          - path: /tables(/|$)(.*)
+    {{- end }}
+    {{- if .Values.config.tables.enabled }}
+    - host: {{ .Values.ingress.host.tables | quote }}
+      http:
+        paths:
+          - path: /
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   name: tables
+    {{- end }}
 {{- end }}

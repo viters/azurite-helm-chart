@@ -53,7 +53,9 @@ persistentVolume:
 ingress:
   enabled: false
   labels: {}
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-  host: ""
+  annotations: {}
+  host:
+    blobs: ""
+    queues: ""
+    tables: ""
   className: "public"
