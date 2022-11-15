@@ -1,7 +1,0 @@
-apiVersion: "v2"
-name: "azurite"
-type: application
-version: "0.1.0"
-appVersion: "3.20.1"
-description: "A lightweight server clone of Azure Storage that simulates most of the commands supported by it with minimal dependencies"
-home: "https://github.com/Azure/Azurite"
