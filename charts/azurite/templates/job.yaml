@@ -21,7 +21,7 @@ spec:
           image: lukaszczesniak/azure-storage-init-containers
           env:
             - name: AZURE_STORAGE_CONNECTION_STRING
-              value: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1'"
+              value: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1"
             - name: AZURE_STORAGE_PUBLIC_CONTAINERS
               value: {{ .Values.config.blobs.initJob.containers.public | default "" }}
             - name: AZURE_STORAGE_PRIVATE_CONTAINERS
