@@ -84,6 +84,8 @@ spec:
             - containerPort: 10002
               name: tables
             {{- end }}
+          securityContext:
+            {{- toYaml .Values.statefulset.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: storage
               mountPath: /data
