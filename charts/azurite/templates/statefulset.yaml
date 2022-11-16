@@ -5,6 +5,10 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "azurite.labels" . | nindent 4 }}
+  {{- with .Values.statefulset.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.statefulset.replicaCount }}
   selector:

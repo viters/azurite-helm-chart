@@ -11,6 +11,10 @@ Entries should be ordered as follows:
 
 Entries should include a reference to the pull request that introduced the change.
 
+## 1.7.0
+
+- [FEATURE] Allow to set annotations on statefulset
+
 ## 1.6.0
 
 - [FEATURE] Allow to change type of service
