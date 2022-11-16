@@ -3,6 +3,17 @@ entries:
   azurite:
   - apiVersion: v2
     appVersion: 3.20.1
+    created: "2022-11-16T13:50:06.529020358Z"
+    description: A lightweight server clone of Azure Storage that simulates most of the commands supported by it with minimal dependencies
+    digest: 70fdf6f62cf26336f42372ae6840103ec32bc41ac3cca7154cf136b2042c8b75
+    home: https://github.com/Azure/Azurite
+    name: azurite
+    type: application
+    urls:
+    - https://github.com/viters/azurite-helm-chart/releases/download/azurite-1.5.0/azurite-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
+    appVersion: 3.20.1
     created: "2022-11-16T09:33:15.952864671Z"
     description: A lightweight server clone of Azure Storage that simulates most of the commands supported by it with minimal dependencies
     digest: 71e27cd09e019598cd1a39f91d696595a550308cbcbe60b70f2884caaa08c0c4
