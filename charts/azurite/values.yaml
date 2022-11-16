@@ -46,6 +46,7 @@ statefulset:
     privileged: false
 
 service:
+  type: ClusterIP
   labels: {}
   annotations: {}
 
