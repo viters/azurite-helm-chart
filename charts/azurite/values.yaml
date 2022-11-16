@@ -66,3 +66,4 @@ ingress:
     queues: null
     tables: null
   className: "public"
+  tls: []
