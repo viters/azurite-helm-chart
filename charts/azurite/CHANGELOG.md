@@ -11,6 +11,11 @@ Entries should be ordered as follows:
 
 Entries should include a reference to the pull request that introduced the change.
 
+## 1.8.0
+
+- [CHANGE] Bump Azurite version to 3.21.0
+- [BUGFIX] Set missing serviceName on StatefulSet
+
 ## 1.7.0
 
 - [FEATURE] Allow to set annotations on statefulset
