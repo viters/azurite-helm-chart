@@ -24,7 +24,7 @@ To uninstall the chart:
 
 ## Contributing
 
-Contributions welcome, sent PRs.
+Contributions welcome, send PRs.
 
 ## License
 
