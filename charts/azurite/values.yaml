@@ -7,16 +7,22 @@ nameOverride: null
 fullnameOverride: null
 
 image:
-  name: mcr.microsoft.com/azure-storage/azurite
+  repository: mcr.microsoft.com/azure-storage/azurite
+  version: 3.26.0
   pullPolicy: Always
   pullSecrets: []
 
 config:
+  # set to true to allow unsupported request headers and parameters
+  loose: false
   blobs:
     enabled: true
     ## https://github.com/viters/azure-storage-init-containers
     initJob:
       enabled: false
+      image: 
+        repository: lukaszczesniak/azure-storage-init-containers
+        version: latest
       containers:
         public: ""
         private: ""
