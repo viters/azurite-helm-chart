@@ -16,9 +16,13 @@ spec:
     metadata:
       name: "{{ .Release.Name }}"
     spec:
+      {{- with .Values.config.blobs.initJob.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: azurite-init-containers
-          image: lukaszczesniak/azure-storage-init-containers
+          image: "{{ .Values.config.blobs.initJob.image.repository}}:{{ .Values.config.blobs.initJob.image.version | toString }}"
           env:
             - name: AZURE_STORAGE_CONNECTION_STRING
               value: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1"
