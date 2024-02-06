@@ -56,13 +56,15 @@ spec:
         {{- toYaml .Values.statefulset.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.version | toString }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.version | default .Chart.AppVersion | toString }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - "azurite"
             - "-l"
             - "/data"
+            {{- if .Values.config.disableProductStyleUrl }}
             - "--disableProductStyleUrl"
+            {{- end }}
             {{- if .Values.config.loose }}
             - "--loose"
             {{- end }}
@@ -77,6 +79,9 @@ spec:
             {{- if .Values.config.tables.enabled }}
             - "--tableHost"
             - "0.0.0.0"
+            {{- end }}
+            {{- range .Values.config.arguments }}
+            - "{{ . }}"
             {{- end }}
           ports:
             {{- if .Values.config.blobs.enabled }}

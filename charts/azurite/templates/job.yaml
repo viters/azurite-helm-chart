@@ -16,11 +16,10 @@ spec:
     metadata:
       name: "{{ .Release.Name }}"
     spec:
-      {{- with .Values.image.pullSecrets }}
+      {{- with .Values.config.blobs.initJob.image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
       containers:
         - name: azurite-init-containers
           image: "{{ .Values.config.blobs.initJob.image.repository}}:{{ .Values.config.blobs.initJob.image.version | toString }}"

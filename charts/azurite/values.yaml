@@ -8,13 +8,22 @@ fullnameOverride: null
 
 image:
   repository: mcr.microsoft.com/azure-storage/azurite
-  version: 3.26.0
+  # Azurite version defaults to appVersion from Chart.yaml.
+  version: ""
   pullPolicy: Always
   pullSecrets: []
 
 config:
-  # set to true to allow unsupported request headers and parameters
+  # When using FQDN instead of IP in request Uri host,
+  # by default Azurite will parse storage account name from request Uri host.
+  # Force parsing storage account name from request Uri path with disableProductStyleUrl.
+  disableProductStyleUrl: true
+  # By default, Azurite will apply strict mode.
+  # Strict mode will block unsupported request headers or parameters.
+  # Disable it by enabling loose mode.
   loose: false
+  # Pass additional arguments to azurite process.
+  arguments: []
   blobs:
     enabled: true
     ## https://github.com/viters/azure-storage-init-containers
@@ -23,6 +32,7 @@ config:
       image: 
         repository: lukaszczesniak/azure-storage-init-containers
         version: latest
+        pullSecrets: []
       containers:
         public: ""
         private: ""

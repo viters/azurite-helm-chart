@@ -11,13 +11,15 @@ Entries should be ordered as follows:
 
 Entries should include a reference to the pull request that introduced the change.
 
-## 1.10.0
+## 2.0.0
 
+- ⚠️ BREAKING [CHANGE] Make Azurite image configuration compatible with renovate/dependabot
+- ⚠️ BREAKING [CHANGE] Disable --loose by default
 - [FEATURE] Allow specifying imagePullSecret in initJob
-- [FEATURE] make --loose configurable
-- [ENHANCEMENT] bump default Azurite version to 3.26.0
-- [CHANGE] move image version into values and adjust format to be compatible with renovate/dependabot
-- [CHANGE] don't hardcode initJob image, move image config into values.yaml instead
+- [FEATURE] Allow passing additional arguments to azurite process
+- [ENHANCEMENT] Make --loose and --disableProductStyleUrl configurable
+- [ENHANCEMENT] Move initJob image configuration into values.yaml
+- [ENHANCEMENT] Bump default Azurite version to 3.29.0
 
 ## 1.8.0
 
